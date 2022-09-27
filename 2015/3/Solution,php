@@ -1,0 +1,71 @@
+<?php
+
+class Solution
+{
+    public function run()
+    {
+        $inputs = file("inputs.txt");
+        // $inputs = file("practice_inputs.txt");
+        $sum = self::determineHouseCount($inputs);
+        print_r($sum);
+    }
+
+    public static function determineHouseCount($inputs)
+    {
+        $x0 = 0;
+        $y0 = 0;
+        $x = 0;
+        $y = 0;
+
+        $houses[] = [0, 0];
+        $input = str_split($inputs[0]);
+        $santa = 1;
+        foreach ($input as $dir) {
+            if ($santa) { 
+                switch ($dir) {
+                    case '^':
+                        $x0 += 1;
+                        break;
+                    case 'v':
+                        $x0 -= 1;
+                        break;
+                    case '>':
+                        $y0 += 1;
+                        break;
+                    case '<':
+                        $y0 -= 1;
+                        break;
+                }
+                
+                if (!in_array([$x0, $y0], $houses)) {
+                    $houses[] = [$x0, $y0];
+                }
+                $santa = 0;
+            } else {
+                switch ($dir) {
+                    case '^':
+                        $x += 1;
+                        break;
+                    case 'v':
+                        $x -= 1;
+                        break;
+                    case '>':
+                        $y += 1;
+                        break;
+                    case '<':
+                        $y -= 1;
+                        break;
+                }
+                
+                if (!in_array([$x, $y], $houses)) {
+                    $houses[] = [$x, $y];
+                }
+                $santa = 1;
+            }
+        }
+
+        return count($houses);
+    }
+}
+
+(new Solution())->run();
