@@ -26,7 +26,7 @@ class Solution
         foreach ($lights as $row) {
             foreach ($row as $column) {
                 if ($column) {
-                    $sum++;
+                    $sum += $column;
                 }
             }
         }
@@ -41,7 +41,7 @@ class Solution
         $y = $coords[1][1];
         for ($i = $y0; $i <= $y; $i++) {
             for ($j = $x0; $j <= $x; $j++) {
-                $lights[$i][$j] = 1;
+                $lights[$i][$j] += 1;
             }
         }
         return $lights;
@@ -55,7 +55,9 @@ class Solution
         $y = $coords[1][1];
         for ($i = $y0; $i <= $y; $i++) {
             for ($j = $x0; $j <= $x; $j++) {
-                $lights[$i][$j] = 0;
+                if ($lights[$i][$j] > 0) {
+                    $lights[$i][$j] -= 1;
+                }
             }
         }
         return $lights;
@@ -69,11 +71,12 @@ class Solution
         $y = $coords[1][1];
         for ($i = $y0; $i <= $y; $i++) {
             for ($j = $x0; $j <= $x; $j++) {
-                if ($lights[$i][$j]) {
-                    $lights[$i][$j] = 0;
-                } else {
-                    $lights[$i][$j] = 1;
-                }
+                $lights[$i][$j] += 2;
+                // if ($lights[$i][$j]) {
+                //     $lights[$i][$j] = 0;
+                // } else {
+                //     $lights[$i][$j] = 1;
+                // }
             }
         }
         return $lights;
